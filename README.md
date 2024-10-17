@@ -1,7 +1,9 @@
 # SOLID Principles
+
 The SOLID principles are a set of five design principles intended to make software designs more understandable, flexible, and maintainable. Originally articulated by Robert C. Martin, these principles can significantly improve the architecture of Angular applications.
 
-**1. Single Responsibility Principle (SRP)**
+## 1. Single Responsibility Principle (SRP)
+
 **Definition:**
 A class should have one, and only one, reason to change. This means that a class should only have one job or responsibility.
 
@@ -10,6 +12,7 @@ In Angular, this can be applied to services and components. For example, a servi
 
 **Code Snippet:**
 
+```typescript
 // UserService.ts
 @Injectable({
   providedIn: 'root',
@@ -29,12 +32,13 @@ export class NotificationService {
     // Logic to send notifications
   }
 }
-
+```
 
 **Real-World Use Case:**
 If you need to update the notification logic, you can do so without affecting the user authentication logic. This makes your application easier to maintain and test.
 
-**2. Open/Closed Principle (OCP)**
+## 2. Open/Closed Principle (OCP)
+
 **Definition:**
 Software entities should be open for extension but closed for modification. This means that you should be able to add new functionality without changing existing code.
 
@@ -43,6 +47,7 @@ Using interfaces and abstract classes helps achieve this principle. For instance
 
 **Code Snippet:**
 
+```typescript
 export abstract class Notification {
   abstract send(message: string): void;
 }
@@ -64,12 +69,13 @@ export class SMSNotification extends Notification {
     // Logic to send an SMS
   }
 }
-
+```
 
 **Real-World Use Case:**
 If a new notification type is needed, like push notifications, you can simply create a new class that extends Notification without modifying existing code.
 
-**3. Liskov Substitution Principle (LSP)**
+## 3. Liskov Substitution Principle (LSP)
+
 **Definition:**
 Subtypes must be substitutable for their base types without altering the correctness of the program. This ensures that a derived class can stand in for its base class.
 
@@ -78,6 +84,7 @@ When you create components that extend from a base component, they should work s
 
 **Code Snippet:**
 
+```typescript
 export class BaseComponent {
   display() {
     console.log('Display base component');
@@ -89,12 +96,13 @@ export class DerivedComponent extends BaseComponent {
     console.log('Display derived component');
   }
 }
-
+```
 
 **Real-World Use Case:**
 If you replace BaseComponent with DerivedComponent in your application, it should function correctly without breaking any functionality.
 
-**4. Interface Segregation Principle (ISP)**
+## 4. Interface Segregation Principle (ISP)
+
 **Definition:**
 Clients should not be forced to depend on interfaces they do not use. This promotes creating smaller, more specific interfaces.
 
@@ -103,6 +111,7 @@ Instead of creating a large service interface that includes many methods, break 
 
 **Code Snippet:**
 
+```typescript
 export interface UserService {
   login(user: User): Observable<User>;
 }
@@ -110,12 +119,13 @@ export interface UserService {
 export interface NotificationService {
   sendNotification(message: string): void;
 }
-
+```
 
 **Real-World Use Case:**
 If you only need the login functionality in a specific component, you can depend solely on the UserService interface without needing to implement unused methods.
 
-**5. Dependency Inversion Principle (DIP)**
+## 5. Dependency Inversion Principle (DIP)
+
 **Definition:**
 High-level modules should not depend on low-level modules. Both should depend on abstractions. This helps in decoupling your components from their dependencies.
 
@@ -124,7 +134,7 @@ Using dependency injection in Angular allows you to inject services rather than 
 
 **Code Snippet:**
 
-
+```typescript
 @Injectable({
   providedIn: 'root',
 })
@@ -135,7 +145,7 @@ export class AppService {
     this.notificationService.sendNotification(message);
   }
 }
-
+```
 
 **Real-World Use Case:**
 By injecting NotificationService, you can easily swap out implementations (e.g., email, SMS) without changing the AppService logic.
